@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import SupplyRepo from './supplyRepository'
 import { Truck } from './types'
@@ -10,14 +10,10 @@ export default class SupplyController {
         this.repo = new SupplyRepo();
     }
 
-    public updateTruckInfo = async (req: Request, res: Response) => {
-        const payload = req.body as Truck;
-        try {
-            await this.repo.updateTruckInfo(payload)
-            return res.status(204)
-        } catch (error) {
-            return error
-        }
+    public updateTruckInfo = async (req: Request, res: Response, next: NextFunction) => {
+        const { carrierId, trucksInfo } = req.body as { carrierId: number, trucksInfo: Truck[]};
+        await this.repo.addTruckInfo(carrierId, trucksInfo).catch(next)
+        return res.status(201)
     }
 
     public createCarrier = async (req: Request, res: Response) => {

@@ -5,7 +5,6 @@ import {
   } from "sequelize";
   
   import { sequelize } from '.'
-  import Carrier from './carrier'
   
   interface TruckAttributes {
     id: number;
@@ -16,6 +15,7 @@ import {
     currentCargoWeight: number;
     currentNoOfPallets: number;
     maxNoOfPallets: number;
+    carrierId: number;
   }
   
   interface TruckCreationAttributes extends Optional<TruckAttributes, "id"> {}
@@ -26,11 +26,11 @@ import {
   }
   
   const Truck = sequelize.define<TruckInstance>(
-    'Truck',
+    'truck',
     {
         id: {
             allowNull: false,
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             unique: true,
@@ -64,12 +64,11 @@ import {
             type: new DataTypes.NUMBER,
             allowNull: false
         },
+        carrierId: {
+            type: new DataTypes.NUMBER,
+            allowNull: false
+        }
     }
   );
-  
-  Truck.belongsTo(Carrier, {
-    foreignKey: 'carrierId',
-    as: 'carrier'
-  });
   
   export default Truck

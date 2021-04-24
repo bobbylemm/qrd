@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 import DemandRepo from './demandRepository'
 import { OrderRequest } from './types'
@@ -10,11 +10,11 @@ export default class SupplyController {
         this.repo = new DemandRepo();
     }
 
-    public updateTruckInfo = async (req: Request, res: Response) => {
+    public updateTruckInfo = async (req: Request, res: Response, next: NextFunction) => {
         const payload = req.body as OrderRequest;
         try {
-            await this.repo.orderRequest(payload, Number(req.query.radius))
-            return res.status(204)
+            const data = await this.repo.orderRequest(payload, Number(req.query.radius)).catch(next)
+            return res.status(204).json({ data })
         } catch (error) {
             return error
         }

@@ -20,11 +20,11 @@ interface CarrierInstance extends Model<CarrierAttributes, CarrierCreationAttrib
 }
 
 const Carrier = sequelize.define<CarrierInstance>(
-  'Carrier',
+  'carrier',
   {
     id: {
       allowNull: false,
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
       unique: true,
@@ -40,6 +40,11 @@ Carrier.hasMany(Truck, {
   sourceKey: 'id',
   foreignKey: 'truckId',
   as: 'trucks'
+});
+
+Truck.belongsTo(Carrier, {
+  foreignKey: 'carrierId',
+  as: 'carrier'
 });
 
 export default Carrier

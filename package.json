@@ -9,7 +9,8 @@
     "watch": "tsc --watch",
     "dev": "NODE_ENV=development nodemon dist",
     "db:migrate": "export NODE_ENV=development; npx sequelize-cli db:migrate",
-    "db:undo": "npx sequelize db:migrate:undo"
+    "db:undo": "npx sequelize db:migrate:undo",
+    "db:seed": "npx sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",

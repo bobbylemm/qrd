@@ -2,7 +2,7 @@ import { QueryInterface } from "sequelize";
 
 export default {
   up: async (queryInterface: QueryInterface, Sequelize: any) => {
-    await queryInterface.createTable('Carriers', {
+    await queryInterface.createTable('carriers', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -23,6 +23,6 @@ export default {
     });
   },
   down: async (queryInterface: QueryInterface, Sequelize: any) => {
-    await queryInterface.dropTable('Carriers');
+    await queryInterface.dropTable('carriers');
   }
 };
