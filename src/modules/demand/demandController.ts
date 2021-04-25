@@ -10,13 +10,12 @@ export default class SupplyController {
         this.repo = new DemandRepo();
     }
 
-    public updateTruckInfo = async (req: Request, res: Response, next: NextFunction) => {
+    public orderRequest = async (req: Request, res: Response, next: NextFunction) => {
         const payload = req.body as OrderRequest;
-        try {
-            const data = await this.repo.orderRequest(payload, Number(req.query.radius)).catch(next)
-            return res.status(204).json({ data })
-        } catch (error) {
-            return error
-        }
+        const data = await this.repo.orderRequest(payload, Number(req.query.radius)).catch((error) => {
+            error.statusCode = 400;
+            next(error)
+        })
+        return res.json({ data })
     }
 }

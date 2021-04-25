@@ -1,12 +1,15 @@
 import { Router } from 'express';
 import SupplyController from './supplyController';
+import validationHandler from '../../middleware/validationHandler'
+import { addTruckInfoSchema } from './supplyValidator'
 
 const router = Router();
 const supplyController = new SupplyController();
 
 router.post(
     '/',
-    supplyController.updateTruckInfo
+    validationHandler(addTruckInfoSchema),
+    supplyController.addTruckInfo
 );
 
 export default router;

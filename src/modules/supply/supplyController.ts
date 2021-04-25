@@ -10,10 +10,10 @@ export default class SupplyController {
         this.repo = new SupplyRepo();
     }
 
-    public updateTruckInfo = async (req: Request, res: Response, next: NextFunction) => {
+    public addTruckInfo = async (req: Request, res: Response, next: NextFunction) => {
         const { carrierId, trucksInfo } = req.body as { carrierId: number, trucksInfo: Truck[]};
-        await this.repo.addTruckInfo(carrierId, trucksInfo).catch(next)
-        return res.status(201)
+        const data = await this.repo.addTruckInfo(carrierId, trucksInfo).catch(next)
+        return res.status(201).json({ data })
     }
 
     public createCarrier = async (req: Request, res: Response) => {

@@ -15,8 +15,7 @@ export default class DemandRepo {
           earth_distance (ll_to_earth (:plat, :plng), ll_to_earth (lat, lng)) < :radius
         `
         try {
-          const data = await TruckModel.sequelize.query(query, { replacements: { plat: pickupLocation.lat, plng: pickupLocation.lng, radius: kmToMeters }, type: QueryTypes.SELECT, raw: true, plain: true })
-          return data
+          return await TruckModel.sequelize.query(query, { replacements: { plat: pickupLocation.lat, plng: pickupLocation.lng, radius: kmToMeters }, type: QueryTypes.SELECT, raw: true, plain: true })
         } catch(error) {
           console.log(error)
           throw error
