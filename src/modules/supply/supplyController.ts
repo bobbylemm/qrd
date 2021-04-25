@@ -12,15 +12,7 @@ export default class SupplyController {
 
     public addTruckInfo = async (req: Request, res: Response, next: NextFunction) => {
         const { carrierId, trucksInfo } = req.body as { carrierId: number, trucksInfo: Truck[]};
-        const data = await this.repo.addTruckInfo(carrierId, trucksInfo).catch(next)
-        return res.status(201).json({ data })
-    }
-
-    public createCarrier = async (req: Request, res: Response) => {
-        try {
-            return res.status(201)
-        } catch (error) {
-            return error
-        }
+        await this.repo.addTruckInfo(carrierId, trucksInfo).catch(next)
+        return res.status(201).json({ message: "Trucks Info added successfully" })
     }
 }

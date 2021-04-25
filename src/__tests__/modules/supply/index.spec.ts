@@ -31,7 +31,8 @@ describe('Supply Module', () => {
             }]
         })
     
-        console.log(response, '-->>>addTruck info response')
+        expect(response.status).toEqual(201)
+        expect(response.body).toEqual({ message: "Trucks Info added successfully" })
     })
     
     test('Should fail validation when payload is not complete', async () => {

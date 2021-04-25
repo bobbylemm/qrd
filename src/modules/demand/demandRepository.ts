@@ -14,14 +14,13 @@ export default class DemandRepo {
         WHERE earth_box (ll_to_earth (:plat, :plng), :radius) @> ll_to_earth (lat, lng)
         AND 
         earth_distance (ll_to_earth (:plat, :plng), ll_to_earth (lat, lng)) < :radius
-        ORDER BY distance DESC LIMIT 1
+        ORDER BY distance ASC LIMIT 1
       `
       try {
         const result = await TruckModel.sequelize.query(query, { replacements: { plat: pickupLocation.lat, plng: pickupLocation.lng, radius: kmToMeters }, type: QueryTypes.SELECT, raw: true, plain: true })
         
         return result ? result : { message: "No nearby truck to fulfill order, expand search radius." }
       } catch(error) {
-        console.log(error)
         throw error
       }
     }
